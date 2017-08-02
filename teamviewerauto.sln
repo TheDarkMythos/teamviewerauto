@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "teamviewerauto", "teamviewerauto\teamviewerauto.csproj", "{D2800F3C-2725-4586-9513-8DDF382313C4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testForm", "testForm\testForm.csproj", "{5B2AA501-A75E-4308-8C4B-9FED036E1F8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testweb", "testweb\testweb.csproj", "{3B588C05-5150-4A3B-B097-26B92C4FF19E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{D2800F3C-2725-4586-9513-8DDF382313C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2800F3C-2725-4586-9513-8DDF382313C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2800F3C-2725-4586-9513-8DDF382313C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B2AA501-A75E-4308-8C4B-9FED036E1F8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B2AA501-A75E-4308-8C4B-9FED036E1F8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B2AA501-A75E-4308-8C4B-9FED036E1F8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B2AA501-A75E-4308-8C4B-9FED036E1F8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B588C05-5150-4A3B-B097-26B92C4FF19E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B588C05-5150-4A3B-B097-26B92C4FF19E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B588C05-5150-4A3B-B097-26B92C4FF19E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B588C05-5150-4A3B-B097-26B92C4FF19E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

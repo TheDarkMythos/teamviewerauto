@@ -1,6 +1,6 @@
 ﻿namespace teamviewerauto
 {
-    partial class UserControl1
+    partial class tvControl
     {
         /// <summary>
         /// 必需的设计器变量。

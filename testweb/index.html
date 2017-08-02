@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+        function connect() {
+            tvControl.connect(tvId.value, tvPwd.value);
+          
+        }
+    </script>
+</head>
+<body>
+
+    伙伴ID<input id="tvId" type="text" value="292585385" />
+    密码<input id="tvPwd" type="text" value="123qwe"/>
+    <input type="button" value="连接" onclick="connect()"/>
+    <object id="tvControl" CLASSID="clsid:17377FAC-ED6F-47FA-8E99-75BB56DD0BB7" ></object>
+</body>
+</html>
