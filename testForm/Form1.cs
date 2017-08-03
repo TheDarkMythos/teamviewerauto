@@ -21,7 +21,7 @@ namespace testForm
         }
         private void test()
         {
-            tvControl1.Connect("292585385", "123qwe");
+            tvControl1.Connect(textBox1.Text, "123qwe");
         }
     }
 }

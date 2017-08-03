@@ -5,7 +5,7 @@
     <title></title>
     <script>
         function connect() {
-            tvControl.connect(tvId.value, tvPwd.value);
+            tvControl.Connect(tvId.value, tvPwd.value);
           
         }
     </script>
@@ -15,6 +15,8 @@
     伙伴ID<input id="tvId" type="text" value="292585385" />
     密码<input id="tvPwd" type="text" value="123qwe"/>
     <input type="button" value="连接" onclick="connect()"/>
-    <object id="tvControl" CLASSID="clsid:17377FAC-ED6F-47FA-8E99-75BB56DD0BB7" ></object>
+    <div style="display:none">
+        <object id="tvControl" CLASSID="clsid:48011AE4-59CE-4FA5-8E2C-3F0354A21AA1"></object>
+    </div>
 </body>
 </html>

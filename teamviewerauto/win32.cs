@@ -87,6 +87,10 @@ namespace teamviewerauto
         public const uint WM_QUIT = 0x12;
         public const uint WM_SETTEXT = 0x0C;
         public const uint BM_CLICK = 0xF5;
+        public const uint EM_REPLACESEL = 0x00C2;
+        public const uint EN_SETFOCUS = 0x0100;
+        public const uint EM_SETSEL = 0x00B1;
+
         public static string GetText(IntPtr hWnd)
         {
             try
@@ -500,7 +504,9 @@ namespace teamviewerauto
         public static extern int  SetForegroundWindow(IntPtr hwnd);
         [DllImport("user32.dll", SetLastError = false)]
         public static extern bool SetWindowText(IntPtr hWnd, string lpString);
-
-
+        [DllImport("user32.DLL")]
+        public static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);  //导入模拟键盘的方法
+        [DllImport("user32.DLL", EntryPoint = "PostMessage")]
+        public static extern bool PostMessage(IntPtr hwnd, uint msg,IntPtr wParam, IntPtr lParam);
     }
 }

@@ -19,7 +19,8 @@ namespace teamviewerauto
         {
             InitializeComponent();
         }
-
+        private bool flagStop = false;
+        System.Timers.Timer timer = new System.Timers.Timer();
         #region IObjectSafety 成员
 
         private const string _IID_IDispatch = "{00020400-0000-0000-C000-000000000046}";
@@ -98,15 +99,23 @@ namespace teamviewerauto
         }
 
         #endregion
+        private string id;
+        private string password;
         public string Connect(string id,string password)
         {
             try
             {
+                timer.Interval = 6000;
+                timer.Enabled = true;
+                timer.Elapsed += Timer_Elapsed;
+                timer.Start();
+                flagStop = false;
+               
+                this.id = id;
+                this.password = password;
 
-                startTeamViewer();
-                fillInfo(id,password);
-                Thread.Sleep(1000);
-                login(id,password);
+                Thread t = new Thread(connect);
+                t.Start();
                 return "sucess";
 
 
@@ -117,23 +126,39 @@ namespace teamviewerauto
             }
            
         }
+        private void connect()
+        {
+            fillInfo(id, password);
+            Thread.Sleep(50);
+            login(id, password);
+        }
+        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            flagStop = true;
+            timer.Stop();
+        }
+
         /// <summary>
         /// 填入基本信息
         /// </summary>
         private void fillInfo(string id,string password)
         {
+            
             //查找teamviewer窗口句柄
             var teamviewer = win32.FindWindow(null, "TeamViewer");
+            win32.ShowWindow(teamviewer, win32.ShowWindowCommands.ShowDefault);
             win32.SetForegroundWindow(teamviewer);
+            Thread.Sleep(1);
             IntPtr hNext = IntPtr.Zero;
             //第一个对话框
             var diag1 = win32.FindWindowEx(teamviewer, hNext, "#32770", "");
             var ComboBox = win32.FindWindowEx(diag1, hNext, "ComboBox", "");
             var editId = win32.FindWindowEx(ComboBox, hNext, "Edit", "");
             var btnLink = win32.FindWindowEx(diag1, hNext, "Button", "连接到伙伴");
-            //win32.SendMessage(editId, win32.WM_SETTEXT, IntPtr.Zero, "371482");
+            win32.SendMessage(editId, win32.EN_SETFOCUS, IntPtr.Zero, "");
+            win32.SendMessage(editId, win32.EM_SETSEL, IntPtr.Zero, "1000");
             SendKeys.SendWait(id);
-            //win32.SetWindowText(editId, "371482");
+            Thread.Sleep(1);
             win32.SendMessage(btnLink, win32.BM_CLICK, IntPtr.Zero, null);
         }
         /// <summary>
@@ -141,11 +166,13 @@ namespace teamviewerauto
         /// </summary>
         private void startTeamViewer()
         {
-            Process.Start(new ProcessStartInfo() { FileName = "taskkill", Arguments = " / im teamviewer.exe / t / f", WindowStyle = ProcessWindowStyle.Hidden });
+            Process.Start(new ProcessStartInfo() { FileName = "taskkill", Arguments = " /im teamviewer.exe /t /f", WindowStyle = ProcessWindowStyle.Hidden });
+            Thread.Sleep(1);
             Process.Start("C:\\Program Files (x86)\\TeamViewer\\TeamViewer.exe");
             IntPtr yanZhen = IntPtr.Zero;
             while (true)
             {
+                Thread.Sleep(100);
                 yanZhen = win32.FindWindow(null, "TeamViewer");
                 if (yanZhen != IntPtr.Zero)
                 {
@@ -170,9 +197,22 @@ namespace teamviewerauto
                     SendKeys.SendWait(password);
                     btnLogin = win32.FindWindowEx(yanZhen, hNext, "Button", "登录");
                     win32.SendMessage(btnLogin, win32.BM_CLICK, IntPtr.Zero, null);
+                   
+                    break;
+                }
+                if (flagStop == true)
+                {
+                    MessageBox.Show("连接超时，请重试！");
                     break;
                 }
             }
         }
+ 
+    }
+    public class data
+    {
+        public string id { get; set; }
+        public string password { get; set; }
+       
     }
 }
