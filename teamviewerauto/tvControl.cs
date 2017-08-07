@@ -105,17 +105,19 @@ namespace teamviewerauto
         {
             try
             {
-                timer.Interval = 6000;
-                timer.Enabled = true;
+                timer.Interval = 30000;
+                timer.Enabled = false;
                 timer.Elapsed += Timer_Elapsed;
                 timer.Start();
                 flagStop = false;
                
                 this.id = id;
                 this.password = password;
-
+                Thread.Sleep(2000);
                 Thread t = new Thread(connect);
                 t.Start();
+                
+               
                 return "sucess";
 
 
@@ -128,9 +130,20 @@ namespace teamviewerauto
         }
         private void connect()
         {
-            fillInfo(id, password);
-            Thread.Sleep(50);
-            login(id, password);
+            try
+            {
+                win32.BlockInput(true);
+                fillInfo(id, password);
+                login(id, password);
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                win32.BlockInput(false);
+            }
         }
         private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
@@ -148,7 +161,7 @@ namespace teamviewerauto
             var teamviewer = win32.FindWindow(null, "TeamViewer");
             win32.ShowWindow(teamviewer, win32.ShowWindowCommands.ShowDefault);
             win32.SetForegroundWindow(teamviewer);
-            Thread.Sleep(1);
+            Thread.Sleep(500);
             IntPtr hNext = IntPtr.Zero;
             //第一个对话框
             var diag1 = win32.FindWindowEx(teamviewer, hNext, "#32770", "");
@@ -158,8 +171,9 @@ namespace teamviewerauto
             win32.SendMessage(editId, win32.EN_SETFOCUS, IntPtr.Zero, "");
             win32.SendMessage(editId, win32.EM_SETSEL, IntPtr.Zero, "1000");
             SendKeys.SendWait(id);
-            Thread.Sleep(1);
+            Thread.Sleep(500);
             win32.SendMessage(btnLink, win32.BM_CLICK, IntPtr.Zero, null);
+            win32.BlockInput(false);
         }
         /// <summary>
         /// 启动teamviewer
@@ -202,7 +216,7 @@ namespace teamviewerauto
                 }
                 if (flagStop == true)
                 {
-                    MessageBox.Show("连接超时，请重试！");
+                    //MessageBox.Show("连接超时，请重试！");
                     break;
                 }
             }
